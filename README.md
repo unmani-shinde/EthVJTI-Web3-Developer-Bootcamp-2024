@@ -1,1 +1,1 @@
-# ETH VJTI Solidity Workshop 2024
+# EthVJTI Solidity Workshop 2024
