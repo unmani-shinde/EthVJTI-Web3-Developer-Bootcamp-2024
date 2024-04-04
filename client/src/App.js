@@ -1,11 +1,11 @@
+import logo from './logo.svg';
 import './App.css';
-import VotingPage from './pages/VotingPage';
-
+import Home from './webpages/Home';
 
 function App() {
   return (
     <div className="App">
-      <VotingPage/>
+      <Home/>
     </div>
   );
 }
