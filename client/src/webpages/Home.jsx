@@ -17,26 +17,109 @@ export default function Home() {
   const [web3,setWeb3] = useState(null);
   const [contract,setContract] = useState(null);
   const [accounts,setAccounts] = useState([]);
+  const [candidates, setCandidates] = useState(null);
+  const [winner,setWinner] = useState(null);
 
-  // useEffect(()=>{
-  //   const initialize = async() =>{
-  //       if(typeof window.ethereum !== 'undefined'){
-  //           try{
-  //               await window.ethereum.request({method:'eth_requestAccounts'});
-  //               const web3 = new Web3(window.ethereum);
-  //               setWeb3(web3);
-  //               const contract = await web3.eth.Contract(contractABI,contractAddress);
-  //               setContract(contract);
-  //               const accounts = await web3.eth.getAccounts();
-  //               setAccounts(accounts);
-  //           }
-  //           catch(error){
-  //               alert("Please install Metamask!");
-  //           }
+  // useEffect(() => {
+  //   const initialize = async () => {
+  //     // Check if web3 is injected by the browser (Mist/MetaMask)
+  //     if (typeof window.ethereum !== 'undefined') {
+  //       try {
+  //         // Request account access
+  //         await window.ethereum.request({ method: 'eth_requestAccounts' });
+  //         const web3 = new Web3(window.ethereum);
+  //         setWeb3(web3);
+
+  //         // Get the user's accounts
+  //         const accounts = await web3.eth.getAccounts();
+  //         setAccounts(accounts);
+
+  //         // Get the contract instance
+  //         const contract = new web3.eth.Contract(contractABI, contractAddress);
+  //         setContract(contract);
+  //         console.log("My address: ",accounts[0]);
+  //       } catch (error) {
+  //         console.error('Error initializing Web3:', error);
+  //         alert(
+  //           'An error occurred while initializing Web3. Please make sure you have MetaMask installed and try again.'
+  //         );
   //       }
-  //   }
-  //   initialize()
-  // },[])
+  //     } else {
+  //       console.log('Please install MetaMask!');
+  //     }
+  //   };
+
+  //   initialize();
+  // }, []);
+
+  const createCandidate = async () => {
+  
+    // try {
+
+    //   const txObject = {
+    //     from: accounts[0],
+    //     to: contractAddress,
+    //     data: contract.methods.addCandidate().encodeABI(),        
+    //     gas: 2000000, // Specify your desired gas limit
+    //   };
+    //   const txHash = await web3.eth.sendTransaction(txObject);
+    //   console.log(txHash);
+    //   console.log("Candidate Created Successfully!");;
+      
+    // } catch (error) {
+    //   console.error('Error:', error);
+    //   alert("There was an error!");
+    // }
+  };
+
+  const castVote = async () => {
+  
+    // try {
+
+    //   const txObject = {
+    //     from: accounts[0],
+    //     to: contractAddress,
+    //     data: contract.methods.castVote(1).encodeABI(),        
+    //     gas: 2000000, // Specify your desired gas limit
+    //   };
+    //   const txHash = await web3.eth.sendTransaction(txObject);
+    //   console.log(txHash);
+    //   console.log("Vote Cast Successfully!");
+      
+    // } catch (error) {
+    //   console.error('Error:', error);
+    //   alert("There was an error!");
+    // }
+  };
+
+  const getAllCandidates = async () => {
+    // try {
+    //   const candidatesCount = 2;
+    //   const candidatesArray = [];
+    //   for (let i = 1; i <= candidatesCount; i++) {
+    //     const candidate = await contract.methods.getCandidate(i).call();
+    //     candidatesArray.push({
+    //       id: i,
+    //       address: candidate[0],
+    //       name: candidate[1],
+    //       voteCount: candidate[2]
+    //     });
+    //   }
+    //   setCandidates(candidatesArray);
+    //   console.log(candidatesArray);
+    // } catch (error) {
+    //   console.error(error);
+    // }
+  };
+
+  const getWinner = async () => {
+    // try {
+    //   const winner = await contract.methods.getWinner().call();
+    //   console.log(winner);
+    // } catch (error) {
+    //   console.error(error);
+    // }
+  };
 
   
 
@@ -142,10 +225,10 @@ export default function Home() {
           <div className="hidden sm:mb-8 sm:flex sm:justify-center">
             <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
               Find out who is in the Lead.{' '}
-              <a href="#" className="font-semibold text-indigo-600">
+              <button onClick={getWinner} className="font-semibold text-indigo-600">
                 <span className="absolute inset-0" aria-hidden="true" />
                 Check Winner <span aria-hidden="true">&rarr;</span>
-              </a>
+              </button>
             </div>
           </div>
           <div className="text-center">
@@ -156,15 +239,17 @@ export default function Home() {
             Secure, Transparent, and Decentralized Voting Platform Harnessing the Power of Blockchain Technology to Ensure Fair and Trustworthy Elections.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
-              <a
-                href="#"
+              <button onClick={castVote} 
                 className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Cast My Vote
-              </a>
-              <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
+              </button>
+              <button onClick={createCandidate}className="text-sm font-semibold leading-6 text-gray-900">
+                Add Candidate <span aria-hidden="true"></span>
+              </button>
+              <button onClick={getAllCandidates} className="text-sm font-semibold leading-6 text-gray-900">
                 View Candidates <span aria-hidden="true">→</span>
-              </a>
+              </button>
             </div>
           </div>
         </div>
