@@ -1,1 +1,1 @@
-# EthVJTI Solidity Workshop 2024
+# EthVJTI Web3 Developer Bootcamp 2024
