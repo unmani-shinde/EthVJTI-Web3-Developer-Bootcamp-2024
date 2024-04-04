@@ -19,6 +19,21 @@ export default function Home() {
   const [accounts,setAccounts] = useState([]);
   const [candidates, setCandidates] = useState(null);
   const [winner,setWinner] = useState(null);
+  const [name, setName] = useState('');
+  const [address, setAddress] = useState('');
+  const [candidateId, setCandidateId] = useState(0);
+
+  const handleNameChange = (event) => {
+    setName(event.target.value);
+  };
+
+  const handleAddressChange = (event) => {
+    setAddress(event.target.value);
+  };
+
+  const handleCandidateIdChange = (event) => {
+    setCandidateId(event.target.value);
+  };
 
   // useEffect(() => {
   //   const initialize = async () => {
@@ -249,7 +264,41 @@ export default function Home() {
               </button>
               <button onClick={getAllCandidates} className="text-sm font-semibold leading-6 text-gray-900">
                 View Candidates <span aria-hidden="true">→</span>
-              </button>
+              </button>              
+            </div>
+            <div>
+              <h3>Add Candidate Info</h3>
+              <label>
+                    Candidate Name:
+                    <input
+                      type="text"
+                      value={name}
+                      onChange={handleNameChange}
+                      required
+                    />
+              </label>
+              <label>
+          Candidate Address:
+          <input
+            type="text"
+            value={address}
+            onChange={handleAddressChange}
+            required
+          />
+        </label>
+            </div>
+            <div>
+              <h3>Choose Candidate to vote for:</h3>
+              <label>
+          Candidate ID:
+          <input
+            type="number"
+            value={candidateId}
+            onChange={handleCandidateIdChange}
+            required
+          />
+        </label>
+              
             </div>
           </div>
         </div>
