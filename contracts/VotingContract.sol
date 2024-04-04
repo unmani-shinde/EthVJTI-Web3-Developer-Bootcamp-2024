@@ -26,15 +26,10 @@ contract Voting{
     event CandidateAdded(address candidateaddr);
     event VoteCast(address voter);
 
-    constructor(string[] memory candidateNames, address[] memory candidateAddresses){
-        require(candidateNames.length==candidateAddresses.length, "Missing candidate details!");
+    constructor(){
         administrator = msg.sender;
         numVoters = 0;
-        numCandidates = candidateNames.length;
-
-        for (uint256 i = 0; i < candidateNames.length; i++) {
-            Candidates[i+1] = Candidate(i+1, candidateAddresses[i],candidateNames[i], 0);
-        }
+        numCandidates = 0;
     }
 
     function addCandidate(string memory candidatename, address candidateaddr ) public {
